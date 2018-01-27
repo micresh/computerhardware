@@ -9,6 +9,7 @@ unsigned char b;
 unsigned char c;
 unsigned char d;
 Processor()
+//-----------------------начало исходного варианта
 {
 a = 0;
 b = 0;
@@ -49,6 +50,15 @@ void neg(unsigned char *op1)
 {
 *op1 = ~*op1;
 };
+// ---------------------конец исходного варианта
+void sub (unsigned char *op1, unsigned char *op2)
+{
+	unsigned char buf = *op2; // ---- сохраняем в буфер значение инвертируемого регистра
+	neg(op2); // -- выполняем операцию инверсии для получение обратного кода
+	add(op2,1); // -- получаем обратный код
+	add(op1,op2); // -- выполняя сложение фактически выполняем вычитание
+	mov(op2,buf); // - восстанавливаем из буфера значение операнда 2
+};
 };
 
 int main()
@@ -58,8 +68,7 @@ unsigned char *rega = &proc.a;
 unsigned char *regb = &proc.b;
 proc.mov(rega, 4);
 proc.mov(regb, 9);
-proc.add(regb,rega);
-proc.ls(rega,3);
+proc.sub(regb, rega);
 printf("%d \n", *rega);
 printf("%d \n", *regb);
 return 0;
