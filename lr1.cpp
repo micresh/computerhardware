@@ -51,6 +51,7 @@ void neg(unsigned char *op1)
 *op1 = ~*op1;
 };
 // ---------------------конец исходного варианта
+// --------------------- команда вычитания регистр-регистр
 void sub (unsigned char *op1, unsigned char *op2)
 {
 	unsigned char buf = *op2; // ---- сохраняем в буфер значение инвертируемого регистра
@@ -59,6 +60,14 @@ void sub (unsigned char *op1, unsigned char *op2)
 	add(op1,op2); // -- выполняя сложение фактически выполняем вычитание
 	mov(op2,buf); // - восстанавливаем из буфера значение операнда 2
 };
+// --------------------- команда вычитания регистр-число
+void  sub(unsigned char *op1, unsigned char num) {
+	unsigned char *buf = &num;
+	neg(buf);
+	add(buf,1);
+	add(op1,buf);
+
+}
 };
 
 int main()
@@ -69,6 +78,7 @@ unsigned char *regb = &proc.b;
 proc.mov(rega, 4);
 proc.mov(regb, 9);
 proc.sub(regb, rega);
+proc.sub(rega,2);
 printf("%d \n", *rega);
 printf("%d \n", *regb);
 return 0;
