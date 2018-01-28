@@ -62,10 +62,10 @@ void sub (unsigned char *op1, unsigned char *op2)
 };
 // --------------------- команда вычитания регистр-число
 void  sub(unsigned char *op1, unsigned char num) {
-	unsigned char *buf = &num;
-	neg(buf);
-	add(buf,1);
-	add(op1,buf);
+	unsigned char *buf = &num; //------ сохраняем в область видимости функции указатель на число
+	neg(buf); //---- инвертируем буфер
+	add(buf,1); //---- формируем дополнительный код
+	add(op1,buf); //----- выполняем вычитание
 
 }
 };
