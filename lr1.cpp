@@ -67,7 +67,18 @@ void  sub(unsigned char *op1, unsigned char num) {
 	add(buf,1); //---- формируем дополнительный код
 	add(op1,buf); //----- выполняем вычитание
 
+};
+//-----операция умножения регистра на регистр
+void mul(unsigned char *op1, unsigned char *op2) {
+	//----- в данной реализации будет выполнен простейший вариант умножения, состоящий из последовательного складывания чисел
+    unsigned char buf = *op1; //---- сохраняем в буфер умножаемое 
+    for (int i=1; i<*op2; i++) //---- инициализируем цикл 
+    {
+        add(op1, buf); //----- непосредственно выполнение операции сложения
+    };
+
 }
+
 };
 
 int main()
@@ -77,8 +88,7 @@ unsigned char *rega = &proc.a;
 unsigned char *regb = &proc.b;
 proc.mov(rega, 4);
 proc.mov(regb, 9);
-proc.sub(regb, rega);
-proc.sub(rega,2);
+proc.mul(rega,regb);
 printf("%d \n", *rega);
 printf("%d \n", *regb);
 return 0;
