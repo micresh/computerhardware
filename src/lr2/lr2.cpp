@@ -99,7 +99,7 @@ Processor proc;
 unsigned char *rega = &proc.a;
 unsigned char *regb = &proc.b;
 proc.mov(rega, 4);
-proc.mov(regb, 15);
+proc.mov(regb, 12);
 proc.mul(rega,regb);
 printf("%d \n", *rega);
 printf("%d \n", *regb);
