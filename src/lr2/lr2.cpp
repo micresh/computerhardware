@@ -1,5 +1,6 @@
 #include <iostream>
 #include <stdio.h>
+#include <cmath>
 using namespace std;
 class Processor
 {
@@ -77,6 +78,7 @@ void  sub(unsigned char *op1, unsigned char num) {
 	add(op1,buf); //----- выполняем вычитание
 
 };
+
 //-----операция умножения регистра на регистр
 void mul(unsigned char *op1, unsigned char *op2) {
 	//----- в данной реализации будет выполнен простейший вариант умножения, состоящий из последовательного складывания чисел
@@ -89,7 +91,28 @@ void mul(unsigned char *op1, unsigned char *op2) {
     
     //---- данная реализация более сложна с точки зрения реализации, однако более эффективна с точки зрения времени выполнения
 
-}
+};
+
+
+void mul(unsigned char *op1, unsigned char num) {
+	unsigned char buf_op = *op1; // -- помещаем в буфер число, которое будем умножаемое
+	unsigned char buf_num = num; // -- помещаем в буфер число, на которое будем умножать
+	unsigned char step; // -- создаем переменную для хранения старшей степени числа
+	unsigned char mn; // -- создаем переменную для хранения значения множителя для определения старшей степени числа
+	step = 1;
+	mn = buf_num & 1;
+	while (mn != 1) {
+		buf_num = buf_num >> 1;
+		mn = buf_num & 1;
+		step++;
+	};
+	ls(op1, step);
+	for (int i = 1; i<=num - pow(2,step); i++) {
+		add(op1,buf_op);
+	};
+
+
+};
 
 };
 
@@ -99,8 +122,8 @@ Processor proc;
 unsigned char *rega = &proc.a;
 unsigned char *regb = &proc.b;
 proc.mov(rega, 4);
-proc.mov(regb, 12);
-proc.mul(rega,regb);
+proc.mov(regb, 59);
+proc.mul(rega,59);
 printf("%d \n", *rega);
 printf("%d \n", *regb);
 printf("%d \n", proc.opcount);
