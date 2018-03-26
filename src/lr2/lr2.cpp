@@ -101,18 +101,18 @@ void mul(unsigned char *op1, unsigned char num) {
 	unsigned char mn; // -- создаем переменную для хранения значения множителя для определения старшей степени числа
 	step = 1;
 	mn = buf_num & 1;
-	while (mn != 1) {
+	while (mn != 1) { // -- вычисление старшей степени множителя
 		buf_num = buf_num >> 1;
 		mn = buf_num & 1;
 		step++;
-	};
-	ls(op1, step);
-	for (int i = 1; i<=num - pow(2,step); i++) {
+	}
+	ls(op1, step); // -- выполнение сдвига влево на число старшей степени множители
+	for (int i = 1; i<=num - pow(2,step); i++) { // -- остаточное сложение 
 		add(op1,buf_op);
-	};
+	}
 
 
-};
+}
 
 };
 
